@@ -15,7 +15,7 @@ BFS is excellent for finding the shortest path in an unweighted graph. Let's see
 
 **Questions:**
 1. If you run a standard BFS starting at Node $A$, looking for Node $D$, which path will the BFS algorithm discover first? Why?
-   > BFS will discover the path $A \rightarrow D$ first. BFS explores by levels, so it looks for the path with the fewest edges before considering longer routes. The direct edge from $A$ to $D$ has length 1, while the alternative route $A \rightarrow B \rightarrow C \rightarrow D$ has length 3.
+   > BFS will discover the path $A \rightarrow D$ first. BFS looks for the path with the fewest edges before considering longer routes. The direct edge from $A$ to $D$ has length 1, while the alternative route $A \rightarrow B \rightarrow C \rightarrow D$ has length 3.
 
 2. What is the total weight of the path BFS found? What is the total weight of the alternative path? 
    > The path BFS finds first is $A \rightarrow D$, with total weight $100$. The alternative path is $A \rightarrow B \rightarrow C \rightarrow D$, with total weight $2 + 3 + 4 = 9$.
