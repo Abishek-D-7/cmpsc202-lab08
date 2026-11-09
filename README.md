@@ -70,10 +70,10 @@ Trace Dijkstra's algorithm starting from Node $A$ to find the shortest path to N
    > Dijkstra declares the path $A \rightarrow B \rightarrow C$, with weight $2 + (-5) = -3$.
 
 3. Look at the graph manually. What is the *actual* shortest path from $A$ to $C$, and what is its total weight? 
-   > There is no finite shortest path because the reachable cycle $A \rightarrow B \rightarrow C \rightarrow A$ has weight $2 + (-5) + 1 = -2$. Each repetition reduces the total cost by $2$. After repeating the cycle $k$ times and then following $A \rightarrow B \rightarrow C$, the cost is $-2k - 3$, which decreases without bound.
+   > There is no finite shortest path because the reachable cycle $A \rightarrow B \rightarrow C \rightarrow A$ has weight $2 + (-5) + 1 = -2$. Each repetition reduces the total cost by $2$.
 
 4. **The Trap:** Explain exactly *why* Dijkstra's algorithm failed to find the correct shortest path in this scenario.
-   > Dijkstra finalizes $A$ at distance $0$, then $B$ at $2$, and $C$ at $-3$. However, the edge $C \rightarrow A$ offers a distance of $-3 + 1 = -2$ to the already finalized node $A$. This breaks the assumption that a finalized distance cannot improve. Repeating the negative cycle keeps lowering the cost, so Dijkstra's finite answer is incorrect. Bellman-Ford can detect this reachable negative cycle and report that no finite shortest path exists.
+   > Dijkstra finalizes $A$ at distance $0$, then $B$ at $2$, and $C$ at $-3$. However, the edge $C \rightarrow A$ offers a distance of $-3 + 1 = -2$ to the already finalized node $A$. This breaks the assumption that a finalized distance cannot improve. Repeating the negative cycle keeps lowering the cost, so Dijkstra's finite answer is incorrect.
 
 ---
 
