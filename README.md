@@ -58,20 +58,22 @@ Dijkstra's algorithm relies on an assumption about the weights. Let's see what h
 
 ![Part 3 Graph](./part3.png)
 
+**Corrected graph:** The directed edges are $A \rightarrow B$ with weight $2$, $B \rightarrow C$ with weight $-5$, and $C \rightarrow A$ with weight $1$.
+
 **Instructions:**
 Trace Dijkstra's algorithm starting from Node $A$ to find the shortest path to Node $C$.
 
 1. Which node does Dijkstra's algorithm visit first after $A$?
-   > After $A$, Dijkstra visits $B$ first because the tentative distance to $B$ is $2$, which is smaller than the tentative distance to $C$, which is $5$.
+   > After $A$, Dijkstra visits $B$ first because its tentative distance is $2$. The distance to $C$ is still $\infty$, since there is no direct edge from $A$ to $C$ in the corrected graph.
 
 2. What will Dijkstra's algorithm declare as the shortest path to $C$, and what is its weight?
-   > It will update the distance to $C$ through $B$: $A \rightarrow B \rightarrow C$ with weight $2 + (-4) = -2$. So it declares the shortest known path to $C$ is $A \rightarrow B \rightarrow C$, weight $-2$.
+   > Dijkstra declares the path $A \rightarrow B \rightarrow C$, with weight $2 + (-5) = -3$.
 
 3. Look at the graph manually. What is the *actual* shortest path from $A$ to $C$, and what is its total weight? 
-   > The actual shortest path is also $A \rightarrow B \rightarrow C$, with total weight $-2$. In this specific graph, the negative edge does not cause Dijkstra to fail.
+   > There is no finite shortest path because the reachable cycle $A \rightarrow B \rightarrow C \rightarrow A$ has weight $2 + (-5) + 1 = -2$. Each repetition reduces the total cost by $2$. After repeating the cycle $k$ times and then following $A \rightarrow B \rightarrow C$, the cost is $-2k - 3$, which decreases without bound.
 
 4. **The Trap:** Explain exactly *why* Dijkstra's algorithm failed to find the correct shortest path in this scenario.
-   > This graph is a trap: the negative edge does not actually break Dijkstra in this specific case, because the path through $B$ is still the best one. The real danger is that Dijkstra's proof depends on all edge weights being nonnegative. Once negative weights are allowed, a node that has already been marked visited may later be improved by a different path through another node, so the algorithm is no longer guaranteed to be correct. In general, negative-weight graphs require Bellman-Ford, not Dijkstra.
+   > Dijkstra finalizes $A$ at distance $0$, then $B$ at $2$, and $C$ at $-3$. However, the edge $C \rightarrow A$ offers a distance of $-3 + 1 = -2$ to the already finalized node $A$. This breaks the assumption that a finalized distance cannot improve. Repeating the negative cycle keeps lowering the cost, so Dijkstra's finite answer is incorrect. Bellman-Ford can detect this reachable negative cycle and report that no finite shortest path exists.
 
 ---
 
